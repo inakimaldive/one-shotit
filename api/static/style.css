@@ -1,0 +1,66 @@
+body {
+font-family: sans-serif;
+line-height: 1.6;
+margin: 0;
+padding: 0;
+background: #f4f4f4;
+color: #333;
+}
+
+.container {
+width: 80%;
+margin: auto;
+overflow: hidden;
+padding: 20px 0;
+}
+
+h1, h2 {
+color: #333;
+}
+
+a {
+color: #333;
+text-decoration: none;
+}
+
+a:hover {
+color: #000;
+}
+
+.blog-post {
+background: #fff;
+padding: 20px;
+margin-bottom: 20px;
+border-radius: 5px;
+}
+
+.post-meta {
+font-size: 0.8em;
+color: #666;
+}
+
+button {
+background: #333;
+color: #fff;
+border: 0;
+padding: 10px 15px;
+cursor: pointer;
+border-radius: 5px;
+}
+
+button:hover {
+background: #555;
+}
+
+/* Added basic styling for 404 page */
+.error-page {
+text-align: center;
+padding-top: 50px;
+}
+.error-page h1 {
+font-size: 3em;
+color: #d9534f; /* A red-ish color */
+}
+.error-page p {
+font-size: 1.2em;
+}

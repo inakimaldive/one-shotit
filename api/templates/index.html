@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Awesome Blog</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Awesome Blog</h1>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="blog-post">
+                    <h2><a href="/post/{{ post.filename }}">{{ post.title }}</a></h2>
+                    <div class="post-meta">{{ post.date }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No blog posts yet. Start by creating one!</p>
+        {% endif %}
+        <a href="/admin"><button>Create New Post</button></a>
+    </div>
+</body>
+</html>

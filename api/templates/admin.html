@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Create New Post</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create New Post</h1>
+        <form id="create-post-form">
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" required><br><br>
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" rows="10" cols="50" required></textarea><br><br>
+            <button type="submit">Create Post</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('create-post-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const response = await fetch('/api/trigger-action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, content }),
+            });
+            if (response.ok) {
+                alert('Post creation triggered successfully! It may take a moment to appear.');
+                window.location.href = '/';
+            } else {
+                const errorData = await response.json();
+                alert(`Error creating post: ${errorData.error || response.statusText}. Check console for details.`);
+                console.error('Error details:', errorData);
+            }
+        });
+    </script>
+</body>
+</html>

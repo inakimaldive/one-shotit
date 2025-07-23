@@ -1,0 +1,29 @@
+name: Create Dated File
+
+on:
+  repository_dispatch:
+    types: [create-dated-file]
+
+jobs:
+  create_file:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Create dated file
+      run: |
+        now=$(date +"%Y-%m-%d-%H-%M-%S")
+        title="${{ github.event.client_payload.title || 'New Post' }}"
+        content="${{ github.event.client_payload.content || '' }}"
+        # Generate SEO-friendly slug
+        slug=$(echo "$title" | iconv -t ascii//TRANSLIT | sed -r 's/[^a-zA-Z0-9]+/-/g' | sed -r 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')
+        filename="$now-$slug.md"
+        mkdir -p contents
+        echo -e "---\ntitle: $title\ndate: $now\n---\n\n$content" > "contents/$filename"
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add "contents/$filename"
+        git commit -m "Create post: $title"
+        git push
